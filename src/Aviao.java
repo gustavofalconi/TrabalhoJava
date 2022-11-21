@@ -2,7 +2,7 @@
 public class Aviao extends Aeronave {
     
     int x, y;
-    public Passageiro lugares[][];
+    public Passageiro passageiro[][] = new Passageiro[x][y];
   
 
 
@@ -12,4 +12,36 @@ public class Aviao extends Aeronave {
         this.x = x;
         this.y = y;
     }
+
+
+
+
+	public Passageiro[][] getPassageiro() {
+		return passageiro;
+	}
+
+
+
+
+	public void setPassageiro(Passageiro[][] passageiro) {
+		this.passageiro = passageiro;
+	}
+
+     
+	public boolean verificaLugarOcupado(int x, int y){
+		boolean status = false;
+		for(int i=0; i<x; i++) {
+			for(int j=0; j<y; j++) {
+				if(passageiro[x][y].getNome().isEmpty()) {
+					status = false;
+				}else{
+					status = true;
+				}
+			}
+		}
+		return status;
+	}
+    
+
+
 }
