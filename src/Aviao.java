@@ -1,11 +1,11 @@
 
 public class Aviao extends Aeronave {
     
-    int x, y;
+
+
+	int x, y;
     public Passageiro passageiro[][] = new Passageiro[x][y];
   
-
-
 
      public Aviao(String modelo, int x, int y) {
         super(modelo);
@@ -17,7 +17,11 @@ public class Aviao extends Aeronave {
 
 
 	public Passageiro[][] getPassageiro() {
+		if(verificaLugarOcupado(this.x, this.y)) {
 		return passageiro;
+		}else {
+		return null;
+		}
 	}
 
 
