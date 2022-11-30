@@ -35,6 +35,20 @@ public class Voo {
 	public void setHora(String hora) {
 		this.hora = hora;
 	}
+
+	@Override
+	public String toString() {
+		return "Voo [Aeronave=" + aeronave.getModelo() + ", Numero do Voo=" + nro + ", data="
+				+ data + ", hora=" + hora + "]";
+	}
+
+	public Aviao getAeronave() {
+		return this.aeronave;
+	}
+
+	public void setAeronave(Aviao aeronave) {
+		this.aeronave = aeronave;
+	}
 	
 	
 }

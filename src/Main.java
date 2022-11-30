@@ -12,16 +12,21 @@ public class Main {
         ArrayList<Aviao> aeronaves = new ArrayList();
         String modelos = "";
         int numeroAeronave;
+        int aviaoX, aviaoY;
         //variáveis do voo
         ArrayList<Voo> voos = new ArrayList();
         int numeroVoo;
+        int numeroDoVooLista;
         String dataVoo, horaVoo;
+        String voosTexto = "";
         
         while(opcaoPrincipal != 3) {
+        opcaoParametros = 0;
+        opcaoReserva = 0;
         opcaoPrincipal = Integer.parseInt(JOptionPane.showInputDialog("Menu Principal"
                                                             +"\n1 - Parâmetros do Sistema"
                                                             +"\n2 - Reserva de Passagens"
-                                                            +"\n3 - Sair"));
+                                                            +"\n3 - Sair "));
         switch(opcaoPrincipal){
             case 1:
                while (opcaoParametros != 3) {
@@ -46,8 +51,10 @@ public class Main {
                 			 modelos));
                 	 Voo voo = new Voo(aeronaves.get(numeroAeronave - 1), numeroVoo, dataVoo, horaVoo);
                 	 voos.add(voo);
+                	 voosTexto +=  (voos.indexOf(voo)+1)+": "+voo.toString()+"\n";
                 	 break;
                  case 3:
+                	 opcaoPrincipal = 0;
                 	 break;
                  default:
                 	 JOptionPane.showMessageDialog(null, "Escolha uma opção válida");
@@ -63,13 +70,38 @@ public class Main {
                          +"\n4 - Voltar"));
             	 switch(opcaoReserva){
                  case 1:
-
+                	 String nomePassageiro, cpfPassageiro;
+                	 nomePassageiro = JOptionPane.showInputDialog("Digite o nome do passageiro");
+                	 cpfPassageiro = JOptionPane.showInputDialog("Digite o CPF do passageiro: ");
+                	 Passageiro passageiro = new Passageiro(nomePassageiro, cpfPassageiro);
+                	 numeroDoVooLista = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número correspondente ao voo que deseja: \n"+
+                			 voosTexto));
+                	 
+                	 
                  break;
                  case 2:
-
+                	 int lugaresVazios = 0;
+                	 
+                	 numeroDoVooLista = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número correspondente ao voo \n"+
+                			 voosTexto));
+                	 			
+                	 aviaoX = voos.get(numeroDoVooLista - 1).getAeronave().getX();
+                	 aviaoY = voos.get(numeroDoVooLista - 1).getAeronave().getY();
+                	 
+                	 for(int i = 0; i<aviaoX; i++) {
+                		 for(int j = 0; j<aviaoY; j++) {
+                			 if(!voos.get((numeroDoVooLista - 1)).getAeronave().verificaLugarOcupado(i, j)){
+                      			  lugaresVazios++;
+                			 
+                	 		}
+                		 }
+                	 }
+                	  	
+                	 JOptionPane.showMessageDialog(null, "Esse voo tem "+lugaresVazios+" lugares vazios");
+                	 	
                  break;
                  case 3:
-
+                	 
                  break;
                  case 4:
                  break;
