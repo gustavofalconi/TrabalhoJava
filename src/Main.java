@@ -13,6 +13,7 @@ public class Main {
         String modelos = "";
         int numeroAeronave;
         int aviaoX, aviaoY;
+        int lugaresVazios = 0;
         //variáveis do voo
         ArrayList<Voo> voos = new ArrayList();
         int numeroVoo;
@@ -71,22 +72,46 @@ public class Main {
             	 switch(opcaoReserva){
                  case 1:
                 	 String nomePassageiro, cpfPassageiro;
+                	 String opcaoX,opcaoY;
                 	 nomePassageiro = JOptionPane.showInputDialog("Digite o nome do passageiro");
                 	 cpfPassageiro = JOptionPane.showInputDialog("Digite o CPF do passageiro: ");
                 	 Passageiro passageiro = new Passageiro(nomePassageiro, cpfPassageiro);
                 	 numeroDoVooLista = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número correspondente ao voo que deseja: \n"+
                 			 voosTexto));
+                	 aviaoX = voos.get(numeroDoVooLista - 1).getAeronave().getX();
+                	 aviaoY = voos.get(numeroDoVooLista - 1).getAeronave().getY();
                 	 
                 	 
+                	 
+                	 for(int i = 0; i<aviaoX; i++) {
+                		 for(int j = 0; j<aviaoY; j++) {
+                			 if(!voos.get((numeroDoVooLista - 1)).getAeronave().verificaLugarOcupado(i, j)){
+                      			  lugaresVazios++;
+                			 
+                	 		}
+                		 }
+                	 }
+                	 if(lugaresVazios == 0) {
+                		 JOptionPane.showMessageDialog(null, "Não existe nenhum lugar disponível no voo");
+                		 
+                	 }else{
+                		 
+                		/* opcaoX= (JOptionPane.showInputDialog(null, "Digite o número correspondente a linha do assento que deseja: \n"+
+                    			 voos.get(numeroDoVooLista).getAeronave().toString()));
+                		 opcaoY= (JOptionPane.showInputDialog(null, "Digite o número correspondente a coluna do assento que deseja: \n"+
+                    			 voos.get(numeroDoVooLista).getAeronave().toString())); */
+                		 
+                	 }
                  break;
                  case 2:
-                	 int lugaresVazios = 0;
                 	 
                 	 numeroDoVooLista = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número correspondente ao voo \n"+
                 			 voosTexto));
                 	 			
                 	 aviaoX = voos.get(numeroDoVooLista - 1).getAeronave().getX();
                 	 aviaoY = voos.get(numeroDoVooLista - 1).getAeronave().getY();
+                	 
+                	 
                 	 
                 	 for(int i = 0; i<aviaoX; i++) {
                 		 for(int j = 0; j<aviaoY; j++) {
