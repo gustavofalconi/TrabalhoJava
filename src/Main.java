@@ -20,6 +20,7 @@ public class Main {
         int numeroDoVooLista;
         String dataVoo, horaVoo;
         String voosTexto = "";
+        String assentosTexto = "";
         
         while(opcaoPrincipal != 3) {
         opcaoParametros = 0;
@@ -71,8 +72,10 @@ public class Main {
                          +"\n4 - Voltar"));
             	 switch(opcaoReserva){
                  case 1:
+                	 lugaresVazios = 0;
                 	 String nomePassageiro, cpfPassageiro;
-                	 String opcaoX,opcaoY;
+                	 int opcaoX,opcaoY;
+                	 String assentoTexto;
                 	 nomePassageiro = JOptionPane.showInputDialog("Digite o nome do passageiro");
                 	 cpfPassageiro = JOptionPane.showInputDialog("Digite o CPF do passageiro: ");
                 	 Passageiro passageiro = new Passageiro(nomePassageiro, cpfPassageiro);
@@ -96,14 +99,23 @@ public class Main {
                 		 
                 	 }else{
                 		 
-                		/* opcaoX= (JOptionPane.showInputDialog(null, "Digite o número correspondente a linha do assento que deseja: \n"+
-                    			 voos.get(numeroDoVooLista).getAeronave().toString()));
-                		 opcaoY= (JOptionPane.showInputDialog(null, "Digite o número correspondente a coluna do assento que deseja: \n"+
-                    			 voos.get(numeroDoVooLista).getAeronave().toString())); */
-                		 
+                		assentosTexto = escreverAssentos(aviaoX, aviaoY,voos.get(numeroDoVooLista - 1));
+                		opcaoX = Integer.parseInt(JOptionPane.showInputDialog("Escolha a linha do assento desejado (Os marcados em X estão ocupados) \n"
+                				+ assentosTexto));
+                		opcaoY = Integer.parseInt(JOptionPane.showInputDialog("Escolha a coluna do assento desejado (Os marcados em X estão ocupados) \n"
+                				+ assentosTexto));
+                		 if(voos.get(numeroDoVooLista-1).getAeronave().verificaLugarOcupado(opcaoX, opcaoY)) {
+                			 JOptionPane.showMessageDialog(null, "Assento ocupado, selecione outro");
+                		 }else{
+                			 System.out.println(opcaoX);
+                			 System.out.println(opcaoY);
+                			 voos.get(numeroDoVooLista-1).getAeronave().setPassageiro(opcaoX, opcaoY, passageiro);
+                			 JOptionPane.showMessageDialog(null, "Reserva Realizada");
+                		 }
                 	 }
                  break;
                  case 2:
+                	 lugaresVazios = 0;
                 	 
                 	 numeroDoVooLista = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número correspondente ao voo \n"+
                 			 voosTexto));
@@ -143,4 +155,25 @@ public class Main {
         }
         }
     }
+        
+      public static String escreverAssentos(int x, int y, Voo voo) {
+    	  
+    	  String escrever="   ";
+    	  for(int j = 0; j<y;j++) {
+    		  escrever += " "+j+"";
+    	  }
+    	  escrever += "\n";
+    for(int i = 0; i<x; i++) {
+    	escrever += i+" ";
+     		 for(int j = 0; j<y; j++) {
+     			if(voo.getAeronave().verificaLugarOcupado(i, j)) {
+     				escrever += "[X]" ;
+     		 }else {
+     			escrever += "[ ]";
+     		 }
+     		}
+     		escrever += " \n";
+     	 }	
+    	return escrever;
+      }
 }

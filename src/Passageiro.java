@@ -7,7 +7,6 @@ public class Passageiro {
 	
 	
 	public Passageiro(String nome, String cpf) {
-		super();
 		this.nome = nome;
 		this.cpf = cpf;
 	}
