@@ -11,13 +11,13 @@ public class Main {
         String modeloAeronave;
         ArrayList<Aviao> aeronaves = new ArrayList();
         String modelos = "";
-        int numeroAeronave;
+        int numeroAeronave = 0;
         int aviaoX, aviaoY;
         int lugaresVazios = 0;
         //variáveis do voo
         ArrayList<Voo> voos = new ArrayList();
         int numeroVoo;
-        int numeroDoVooLista;
+        int numeroDoVooLista = 0;
         String dataVoo, horaVoo;
         String voosTexto = "";
         String assentosTexto = "";
@@ -29,6 +29,7 @@ public class Main {
                                                             +"\n1 - Parâmetros do Sistema"
                                                             +"\n2 - Reserva de Passagens"
                                                             +"\n3 - Sair "));
+        
         switch(opcaoPrincipal){
             case 1:
                while (opcaoParametros != 3) {
@@ -44,22 +45,30 @@ public class Main {
                 	 Aviao aeronave = new Aviao(modeloAeronave, x, y );
                 	 aeronaves.add(aeronave);
                 	 modelos +=  (aeronaves.indexOf(aeronave)+1)+": "+modeloAeronave+"\n";
+                	 JOptionPane.showMessageDialog(null, "Aeronave cadastrada!");
                 	 break;
-                 case 2:      
+                 case 2:
+                	 numeroAeronave = 0;
                 	 numeroVoo = Integer.parseInt(JOptionPane.showInputDialog("Digite o número do voo"));
                 	 dataVoo = JOptionPane.showInputDialog("Digite a data do voo (ex: 20/12/2022): ");
                 	 horaVoo = JOptionPane.showInputDialog("Digite a hora do voo (ex: 13:30): ");
+                	 while(numeroAeronave < 1 || numeroAeronave > aeronaves.size()) {
                 	 numeroAeronave = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número correspondente a aeronave \n"+
                 			 modelos));
+                	 if (numeroAeronave < 1 || numeroAeronave > aeronaves.size()) {
+                		 JOptionPane.showMessageDialog(null, "Escolha um número válido", "Número Inválido", JOptionPane.ERROR_MESSAGE);
+                	 }
+                	 }
                 	 Voo voo = new Voo(aeronaves.get(numeroAeronave - 1), numeroVoo, dataVoo, horaVoo);
                 	 voos.add(voo);
                 	 voosTexto +=  (voos.indexOf(voo)+1)+": "+voo.toString()+"\n";
+                	 JOptionPane.showMessageDialog(null, "Voo cadastrado!");
                 	 break;
                  case 3:
                 	 opcaoPrincipal = 0;
                 	 break;
                  default:
-                	 JOptionPane.showMessageDialog(null, "Escolha uma opção válida");
+                	 JOptionPane.showMessageDialog(null, "Escolha uma opção válida", "Opção Inválida", JOptionPane.ERROR_MESSAGE);
              }
            }
             	 break;
@@ -75,10 +84,19 @@ public class Main {
                 	 lugaresVazios = 0;
                 	 String nomePassageiro, cpfPassageiro;
                 	 int opcaoX,opcaoY;
+                	 numeroDoVooLista = 0;
                 	 nomePassageiro = JOptionPane.showInputDialog("Digite o nome do passageiro");
                 	 cpfPassageiro = JOptionPane.showInputDialog("Digite o CPF do passageiro: ");
+                	 while(numeroDoVooLista < 1 || numeroDoVooLista > voos.size()) {
                 	 numeroDoVooLista = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número correspondente ao voo que deseja: \n"+
                 			 voosTexto));
+                	 if (numeroDoVooLista < 1 || numeroDoVooLista > voos.size()) {
+                		 
+                		 JOptionPane.showMessageDialog(null, "Escolha um número válido", "Número Inválido", JOptionPane.ERROR_MESSAGE);
+                		 
+                	 }
+                	 }
+                	 
                 	 aviaoX = voos.get(numeroDoVooLista - 1).getAeronave().getX();
                 	 aviaoY = voos.get(numeroDoVooLista - 1).getAeronave().getY();
                 	 
@@ -93,7 +111,8 @@ public class Main {
                 		 }
                 	 }
                 	 if(lugaresVazios == 0) {
-                		 JOptionPane.showMessageDialog(null, "Não existe nenhum lugar disponível no voo");
+                		 
+                		 JOptionPane.showMessageDialog(null, "Não existe nenhum lugar disponível no voo", "Erro", JOptionPane.ERROR_MESSAGE);
                 		 
                 	 }else{
                 		 
@@ -103,7 +122,7 @@ public class Main {
                 		opcaoY = Integer.parseInt(JOptionPane.showInputDialog("Escolha a coluna do assento desejado (Os marcados em X estão ocupados) \n"
                 				+ assentosTexto));
                 		 if(voos.get(numeroDoVooLista-1).getAeronave().verificaLugarOcupado(opcaoX, opcaoY)) {
-                			 JOptionPane.showMessageDialog(null, "Assento ocupado, selecione outro");
+                			 JOptionPane.showMessageDialog(null, "Assento ocupado, selecione outro", "Erro", JOptionPane.ERROR_MESSAGE);
                 		 }else{
                 			 voos.get(numeroDoVooLista-1).getAeronave().lugares[opcaoX][opcaoY] = new Passageiro (nomePassageiro, cpfPassageiro);
                 			 JOptionPane.showMessageDialog(null, "Reserva Realizada");
@@ -112,9 +131,15 @@ public class Main {
                  break;
                  case 2:
                 	 lugaresVazios = 0;
+                	 numeroDoVooLista = 0;
                 	 
-                	 numeroDoVooLista = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número correspondente ao voo \n"+
+                	 while(numeroDoVooLista < 1 || numeroDoVooLista > voos.size()) {
+                	 numeroDoVooLista = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número correspondente ao voo que deseja: \n"+
                 			 voosTexto));
+                	 if (numeroDoVooLista < 1 || numeroDoVooLista > voos.size()) {
+                		 JOptionPane.showMessageDialog(null, "Escolha um número válido", "Número Inválido", JOptionPane.ERROR_MESSAGE);
+                	 }
+                	 }
                 	 			
                 	 aviaoX = voos.get(numeroDoVooLista - 1).getAeronave().getX();
                 	 aviaoY = voos.get(numeroDoVooLista - 1).getAeronave().getY();
@@ -134,9 +159,14 @@ public class Main {
                 	 	
                  break;
                  case 3:
-                	 
+                	 numeroDoVooLista = 0;
+                	 while(numeroDoVooLista < 1 || numeroDoVooLista > voos.size()) {
                 	 numeroDoVooLista = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número correspondente ao voo que deseja: \n"+
                 			 voosTexto));
+                	 if (numeroDoVooLista < 1 || numeroDoVooLista > voos.size()) {
+                		 JOptionPane.showMessageDialog(null, "Escolha um número válido", "Número Inválido", JOptionPane.ERROR_MESSAGE);
+                	 }
+                	 }
                 	 aviaoX = voos.get(numeroDoVooLista - 1).getAeronave().getX();
                 	 aviaoY = voos.get(numeroDoVooLista - 1).getAeronave().getY();
                 	 
@@ -158,7 +188,7 @@ public class Main {
                  case 4:
                  break;
                  default:
-                	 JOptionPane.showMessageDialog(null, "Escolha uma opção válida");
+                	 JOptionPane.showMessageDialog(null, "Escolha uma opção válida", "Opção Inválida", JOptionPane.ERROR_MESSAGE);
              }
            }
             break; 
@@ -166,7 +196,7 @@ public class Main {
             	JOptionPane.showMessageDialog(null, "Obrigado por usar o programa!");
             break;
             default:
-            	JOptionPane.showMessageDialog(null, "Escolha uma opção válida");
+            	JOptionPane.showMessageDialog(null, "Escolha uma opção válida", "Opção Inválida", JOptionPane.ERROR_MESSAGE);
         }
         }
     }
@@ -180,6 +210,7 @@ public class Main {
     		  }else if(j==y-1) {
     			  escrever += ""+j+"";
     		  }
+    		  
     	  }
     	  escrever += "\n";
     for(int i = 0; i<x; i++) {
