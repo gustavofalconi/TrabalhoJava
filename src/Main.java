@@ -49,6 +49,10 @@ public class Main {
                 	 break;
                  case 2:
                 	 numeroAeronave = 0;
+                	 if(aeronaves.size() == 0) {
+                		 JOptionPane.showMessageDialog(null, "Sem aeronaves disponíveis, cadastre uma", "Erro", JOptionPane.ERROR_MESSAGE);
+                		 break;
+                	 }else {               
                 	 numeroVoo = Integer.parseInt(JOptionPane.showInputDialog("Digite o número do voo"));
                 	 dataVoo = JOptionPane.showInputDialog("Digite a data do voo (ex: 20/12/2022): ");
                 	 horaVoo = JOptionPane.showInputDialog("Digite a hora do voo (ex: 13:30): ");
@@ -63,6 +67,7 @@ public class Main {
                 	 voos.add(voo);
                 	 voosTexto +=  (voos.indexOf(voo)+1)+": "+voo.toString()+"\n";
                 	 JOptionPane.showMessageDialog(null, "Voo cadastrado!");
+                	 }
                 	 break;
                  case 3:
                 	 opcaoPrincipal = 0;
@@ -83,8 +88,12 @@ public class Main {
                  case 1:
                 	 lugaresVazios = 0;
                 	 String nomePassageiro, cpfPassageiro;
-                	 int opcaoX,opcaoY;
                 	 numeroDoVooLista = 0;
+                	 
+                	 if(voos.size() == 0) {
+                		 JOptionPane.showMessageDialog(null, "Não existem voos disponíveis no momento", "Sem voos", JOptionPane.ERROR_MESSAGE);
+                		 break;
+                	 }else{
                 	 nomePassageiro = JOptionPane.showInputDialog("Digite o nome do passageiro");
                 	 cpfPassageiro = JOptionPane.showInputDialog("Digite o CPF do passageiro: ");
                 	 while(numeroDoVooLista < 1 || numeroDoVooLista > voos.size()) {
@@ -115,12 +124,23 @@ public class Main {
                 		 JOptionPane.showMessageDialog(null, "Não existe nenhum lugar disponível no voo", "Erro", JOptionPane.ERROR_MESSAGE);
                 		 
                 	 }else{
-                		 
+                		int opcaoX = -1;
+                		int opcaoY = -1;
                 		assentosTexto = escreverAssentos(aviaoX, aviaoY,voos.get(numeroDoVooLista - 1));
+                		while(opcaoX < 0 || opcaoX>aviaoX-1) {
                 		opcaoX = Integer.parseInt(JOptionPane.showInputDialog("Escolha a linha do assento desejado (Os marcados em X estão ocupados) \n"
                 				+ assentosTexto));
+                		if(opcaoX < 0 || opcaoX>aviaoX-1) {
+                			JOptionPane.showMessageDialog(null, "Linha inválida, selecione uma linha de 0 até "+(aviaoX-1), "Erro", JOptionPane.ERROR_MESSAGE);
+                		}
+                	}
+                		while(opcaoY < 0 || opcaoY>aviaoY-1) {
                 		opcaoY = Integer.parseInt(JOptionPane.showInputDialog("Escolha a coluna do assento desejado (Os marcados em X estão ocupados) \n"
                 				+ assentosTexto));
+                		if(opcaoY < 0 || opcaoY>aviaoY-1) {
+                			JOptionPane.showMessageDialog(null, "Coluna inválida, selecione uma coluna de 0 até "+(aviaoY-1), "Erro", JOptionPane.ERROR_MESSAGE);
+                		}
+                	}	
                 		 if(voos.get(numeroDoVooLista-1).getAeronave().verificaLugarOcupado(opcaoX, opcaoY)) {
                 			 JOptionPane.showMessageDialog(null, "Assento ocupado, selecione outro", "Erro", JOptionPane.ERROR_MESSAGE);
                 		 }else{
@@ -128,10 +148,16 @@ public class Main {
                 			 JOptionPane.showMessageDialog(null, "Reserva Realizada");
                 		 }
                 	 }
+                }	 
                  break;
                  case 2:
                 	 lugaresVazios = 0;
                 	 numeroDoVooLista = 0;
+                	 
+                	 if(voos.size() == 0) {
+                		 JOptionPane.showMessageDialog(null, "Não existem voos disponíveis no momento", "Sem voos", JOptionPane.ERROR_MESSAGE);
+                		 break;
+                	 }else{
                 	 
                 	 while(numeroDoVooLista < 1 || numeroDoVooLista > voos.size()) {
                 	 numeroDoVooLista = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número correspondente ao voo que deseja: \n"+
@@ -156,9 +182,14 @@ public class Main {
                 	 }
                 	  	
                 	 JOptionPane.showMessageDialog(null, "Esse voo tem "+lugaresVazios+" lugares vazios");
-                	 	
+               }	
                  break;
                  case 3:
+                	 
+                	 if(voos.size() == 0) {
+                		 JOptionPane.showMessageDialog(null, "Não existem voos disponíveis no momento", "Sem voos", JOptionPane.ERROR_MESSAGE);
+                		 break;
+                	 }else{
                 	 numeroDoVooLista = 0;
                 	 while(numeroDoVooLista < 1 || numeroDoVooLista > voos.size()) {
                 	 numeroDoVooLista = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número correspondente ao voo que deseja: \n"+
@@ -183,7 +214,7 @@ public class Main {
                 		assentosTexto = escreverAssentos(aviaoX, aviaoY,voos.get(numeroDoVooLista - 1));
                 		JOptionPane.showMessageDialog(null,"Assentos com um X são os assentos com reservas já realizadas: \n"
                 				+ assentosTexto);
-                		
+                }	
                  break;
                  case 4:
                  break;
