@@ -1,7 +1,6 @@
-# Alura-stickers
+# Projeto LP1A3 - IFSP
 ## ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=FINALZADO&color=red&style=for-the-badge) <img src="http://img.shields.io/static/v1?label=Java&message=17&color=blue&style=for-the-badge&logo=openjdk"/>
-Projeto feito na Imersão Java da Alura, onde criamos juntos um programa que é capaz de fazer stickers, e uma API com as principais linguagens de programação (escolhidas por nós, não as principais de fato)
-
+Trabalho em dupla da disciplina "Linguagem de Programação 1" do IFSP 
 ## 📁 Acesso ao projeto
 
 **Você pode [acessar o código fonte do trabalho](https://github.com/gustavofalconi/TrabalhoJava/tree/main) ou [baixa-lo.](https://github.com/gustavofalconi/TrabalhoJava/archive/refs/heads/main.zip)**
